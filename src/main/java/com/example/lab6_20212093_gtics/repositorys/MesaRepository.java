@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+//Repositorio para las mesas
 public interface MesaRepository extends JpaRepository<Mesa, Long> {
-    List<Mesa> findByDisponibleTrue();
-    long countByDisponibleFalse();
+    List<Mesa> BuscarDisponibles();
+    long ContarDisponibles();
 }
 

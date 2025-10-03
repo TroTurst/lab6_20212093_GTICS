@@ -13,12 +13,12 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario getUsuarioAutenticado(String correo) {
-        return usuarioRepository.findByCorreo(correo)
+        return usuarioRepository.BuscarPorCorreo(correo)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con correo: " + correo));
     }
 
     public Usuario getUsuarioById(Long id) {
-        return usuarioRepository.findById(id)
+        return usuarioRepository.BuscarPorId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con ID: " + id));
     }
 }

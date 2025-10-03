@@ -20,12 +20,12 @@ public class AsignacionCancionService {
 
     public Optional<AsignacionCancion> getAsignacionActiva(String correoUsuario) {
         Usuario usuario = usuarioService.getUsuarioAutenticado(correoUsuario);
-        return asignacionRepository.findByUsuarioIdAndAdivinadaFalse(usuario.getId());
+        return asignacionRepository.EncontrarUsuario(usuario.getId());
     }
 
     public void asignarCancion(Long usuarioId, Long cancionId) {
         Usuario usuario = usuarioService.getUsuarioById(usuarioId);
-        CancionCriolla cancion = cancionRepository.findById(cancionId)
+        CancionCriolla cancion = cancionRepository.BuscarPorId(cancionId) //No se porque me da este problema
                 .orElseThrow(() -> new IllegalArgumentException("Canción no encontrada."));
 
         AsignacionCancion asignacion = new AsignacionCancion();
@@ -35,7 +35,7 @@ public class AsignacionCancionService {
     }
 
     public List<AsignacionCancion> getRanking() {
-        return asignacionRepository.findTop10ByAdivinadaTrueOrderByIntentosAsc();
+        return asignacionRepository.EncontrarTop10PorIntenttos();
     }
 
 }

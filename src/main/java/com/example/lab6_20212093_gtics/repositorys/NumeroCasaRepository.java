@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
+//Repositio para el numero de casa
 public interface NumeroCasaRepository extends JpaRepository<NumeroCasa, Long> {
-    Optional<NumeroCasa> findByUsuarioIdAndAdivinadoFalse(Long usuarioId);
-    List<NumeroCasa> findTop10ByAdivinadoTrueOrderByIntentosAsc();
+    Optional<NumeroCasa> BuscarPorUsuarioYAdivinanza(Long usuarioId);
+    List<NumeroCasa> BuscarPorUsuarioYAdivinanzaAsc();
 }

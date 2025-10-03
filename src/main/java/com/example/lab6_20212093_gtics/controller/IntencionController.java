@@ -20,12 +20,14 @@ public class IntencionController {
     @Autowired private IntencionService intencionService;
     @Autowired private UsuarioService usuarioService;
 
+    //Para una acccion como admin
     @GetMapping("/admin/intenciones")
     public String listarIntencionesAdmin(Model model) {
         model.addAttribute("intenciones", intencionService.findAll());
         return "intenciones/admin_lista";
     }
 
+    //Para registrar como admin
     @GetMapping("/intenciones/registrar")
     public String mostrarFormulario(Model model, @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) {
         Usuario usuario = usuarioService.getUsuarioAutenticado(userDetails.getUsername());

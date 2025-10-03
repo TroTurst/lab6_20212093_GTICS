@@ -25,7 +25,7 @@ public class JuegoController {
     @Autowired private UsuarioService usuarioService;
 
 
-
+    //Para el juego de la cancion
     @GetMapping("/cancion")
     public String juegoCancion(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         Optional<AsignacionCancion> optAsignacion = cancionService.getAsignacionActiva(userDetails.getUsername());
@@ -46,7 +46,7 @@ public class JuegoController {
         return "juegos/cancion_game";
     }
 
-    @PostMapping("/cancion/guess")
+    @PostMapping("/cancion/juego")
     public String adivinarCancion(@ModelAttribute("cancionAsignada") AsignacionCancion asignacion,
                                   @ModelAttribute("guessForm") CancionDTO guessForm,
                                   SessionStatus status, Model model, RedirectAttributes redirect) {
@@ -69,6 +69,7 @@ public class JuegoController {
         return "juegos/cancion_game";
     }
 
+    //Para ver el ranking del juego
     @GetMapping("/cancion/ranking")
     public String rankingCancion(Model model) {
         model.addAttribute("ranking", cancionService.getRanking());
@@ -94,7 +95,7 @@ public class JuegoController {
         return "juegos/dulces_game";
     }
 
-
+    //No me salio este
     @PostMapping("/dulces/Oktoberfest")
     public String adivinarDulces(@ModelAttribute("numeroCasaAsignado") NumeroCasa asignacion,
                                  @ModelAttribute("guessForm") NumeroCasaDOT guessForm,

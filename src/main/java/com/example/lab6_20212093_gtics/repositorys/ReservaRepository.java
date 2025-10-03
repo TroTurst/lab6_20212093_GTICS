@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
+//Repositorio para hacer recervas
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
-    Optional<Reserva> findByUsuarioId(Long usuarioId);
+    Optional<Reserva> PorUsuarioId(Long usuarioId);
 
-    Optional<Reserva> findByMesa(Mesa mesa);
+    Optional<Reserva> BuscarPorMesa(Mesa mesa);
 }
+

@@ -41,7 +41,7 @@ public class HeroeNavalService {
     }
 
     public Optional<HeroeNaval> findHeroeById(Long id) {
-        return heroeNavalRepository.findById(id);
+        return heroeNavalRepository.BuscarPorId(id); //No se porque me da este problema
     }
 
     public void deleteHeroe(Long id) {

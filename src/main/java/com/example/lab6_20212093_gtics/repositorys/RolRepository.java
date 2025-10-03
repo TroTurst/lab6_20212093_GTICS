@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
+//Repositio para el rol, no lo termine usando
 public interface RolRepository extends JpaRepository<Rol, Long> {
-    Optional<Rol> findByNombre(TodosLosRoles nombre);
+    Optional<Rol> BuscarPorNombre(TodosLosRoles nombre);
 }
+

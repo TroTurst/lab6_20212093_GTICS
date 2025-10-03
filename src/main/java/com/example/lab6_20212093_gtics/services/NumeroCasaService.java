@@ -17,7 +17,7 @@ public class NumeroCasaService {
 
     public Optional<NumeroCasa> getAsignacionActiva(String correoUsuario) {
         Usuario usuario = usuarioService.getUsuarioAutenticado(correoUsuario);
-        return numeroCasaRepository.findByUsuarioIdAndAdivinadoFalse(usuario.getId());
+        return numeroCasaRepository.BuscarPorUsuarioYAdivinanza(usuario.getId());
     }
 
     public void asignarNumero(Long usuarioId, Integer numeroObjetivo) {
@@ -34,6 +34,6 @@ public class NumeroCasaService {
     }
 
     public List<NumeroCasa> getRanking() {
-        return numeroCasaRepository.findTop10ByAdivinadoTrueOrderByIntentosAsc();
+        return numeroCasaRepository.BuscarPorUsuarioYAdivinanzaAsc();
     }
 }

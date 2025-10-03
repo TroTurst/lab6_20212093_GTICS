@@ -21,10 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByCorreo(correo)
+        Usuario usuario = usuarioRepository.BuscarPorCorreo(correo)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con correo: " + correo));
 
-        // Mapeo de Roles a Authorities
         GrantedAuthority authority = new SimpleGrantedAuthority(usuario.getRol().getNombre().name());
 
         return new User(

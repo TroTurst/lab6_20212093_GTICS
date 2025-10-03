@@ -19,11 +19,11 @@ public class ReservaService {
 
     public Reserva reservarMesa(Long mesaId, String correoUsuario) {
         Usuario usuario = usuarioService.getUsuarioAutenticado(correoUsuario);
-        Mesa mesa = mesaRepository.findById(mesaId)
+        Mesa mesa = mesaRepository.BuscarPorId(mesaId)
                 .orElseThrow(() -> new IllegalArgumentException("Mesa no encontrada."));
 
         // En caso la cuenta ya tenga una reserva
-        if (reservaRepository.findByUsuarioId(usuario.getId()).isPresent()) {
+        if (reservaRepository.PorUsuarioId(usuario.getId()).isPresent()) {
             throw new IllegalStateException("Ya tienes una reserva activa.");
         }
 
@@ -47,10 +47,10 @@ public class ReservaService {
 
     // Lógica ADMIN
     public void liberarMesa(Long mesaId) {
-        Mesa mesa = mesaRepository.findById(mesaId)
+        Mesa mesa = mesaRepository.BuscarPorId(mesaId)
                 .orElseThrow(() -> new IllegalArgumentException("Mesa no encontrada."));
 
-        reservaRepository.findByMesa(mesa).ifPresent(reservaRepository::delete);
+        reservaRepository.BuscarPorMesa(mesa).ifPresent(reservaRepository::delete);
 
         mesa.setDisponible(true);
         mesaRepository.save(mesa);

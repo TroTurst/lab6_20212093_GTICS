@@ -26,7 +26,7 @@ public class IntencionService {
     private static final String CONTENT_AND_LENGTH_REGEX = "^[\\s\\S]{15,255}$";
 
     public boolean yaExistePeticion(Long usuarioId) {
-        return intencionRepository.existsByUsuarioId(usuarioId);
+        return intencionRepository.UsuarisosPorId(usuarioId);
     }
 
     public Intencion guardarPeticion(String descripcion, String correoUsuario) {

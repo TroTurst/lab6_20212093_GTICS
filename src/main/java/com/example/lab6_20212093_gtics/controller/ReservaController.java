@@ -9,10 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
 @Controller
 @RequestMapping("/reservas")
 public class ReservaController {
@@ -20,12 +18,13 @@ public class ReservaController {
     @Autowired private ReservaService reservaService;
     @Autowired private MesaRepository mesaRepository;
 
+        //Para ver las mesas que hay disponibles
     @GetMapping
     public String listarMesas(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        long ocupadas = mesaRepository.countByDisponibleFalse();
+        long ocupadas = mesaRepository.ContarDisponibles();
         long libres = mesaRepository.count() - ocupadas;
 
-        model.addAttribute("mesasDisponibles", mesaRepository.findByDisponibleTrue());
+        model.addAttribute("mesasDisponibles", mesaRepository.BuscarDisponibles());
         model.addAttribute("mesasLibres", libres);
         model.addAttribute("mesasOcupadas", ocupadas);
         model.addAttribute("reservaDto", new ReservaDTO());
@@ -67,7 +66,7 @@ public class ReservaController {
 
     @PostMapping("/admin/capacidad")
     public String reasignarCapacidad(@RequestParam Long mesaId, @RequestParam Integer nuevaCapacidad) {
-        Mesa mesa = mesaRepository.findById(mesaId).orElseThrow();
+        Mesa mesa = mesaRepository.BuscarPorId(mesaId).orElseThrow(); //No se porque me da este problema
         mesa.setCapacidad(nuevaCapacidad);
         mesaRepository.save(mesa);
         return "redirect:/reservas/admin";

@@ -13,18 +13,21 @@ public class HeroeNavalController {
 
     @Autowired private HeroeNavalService heroeNavalService;
 
+    //Ruta para ver los heroes, no se necesitar estar logueado
     @GetMapping("/heroes")
     public String listarHeroes(Model model) {
         model.addAttribute("heroes", heroeNavalService.findAllHeroes());
         return "heroes/lista_publica";
     }
 
+    //Vista de admin para ver los heroes
     @GetMapping("/admin/heroes")
     public String adminListarHeroes(Model model) {
         model.addAttribute("heroes", heroeNavalService.findAllHeroes());
         return "heroes/admin_lista";
     }
 
+    //Vista de admin para el formulario
     @GetMapping("/admin/heroes/form")
     public String mostrarFormulario(@RequestParam(required = false) Long id, Model model) {
         HeroeNaval heroe = id != null ? heroeNavalService.findHeroeById(id).orElse(new HeroeNaval()) : new HeroeNaval();
@@ -32,6 +35,7 @@ public class HeroeNavalController {
         return "heroes/admin_form";
     }
 
+    //Para guardar heroes
     @PostMapping("/admin/heroes/save")
     public String guardarHeroe(@ModelAttribute HeroeNaval heroe, RedirectAttributes redirect) {
         try {
@@ -43,6 +47,7 @@ public class HeroeNavalController {
         return "redirect:/admin/heroes";
     }
 
+    //Para borrar heroes
     @GetMapping("/admin/heroes/delete/{id}")
     public String eliminarHeroe(@PathVariable Long id, RedirectAttributes redirect) {
         heroeNavalService.deleteHeroe(id);
