@@ -1,5 +1,6 @@
 package com.example.lab6_20212093_gtics.entitys;
 
+import com.example.lab6_20212093_gtics.entitys.*;
 import jakarta.persistence.*;
 
 
@@ -7,24 +8,17 @@ import jakarta.persistence.*;
 @Table(name = "roles")
 public class Rol {
 
-    public enum todosRoles{
-        ADMIN,
-        USUARIO,
-        VISITANTE,
-
-    }
-
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private todosRoles nombre;
+    private TodosLosRoles nombre;
 
     public Rol() {}
 
-    public Rol(todosRoles nombre) {
+    public Rol(TodosLosRoles nombre) {
         this.nombre = nombre;
     }
 
@@ -36,11 +30,11 @@ public class Rol {
         this.id = id;
     }
 
-    public todosRoles getNombre(){
+    public TodosLosRoles getNombre(){
         return nombre;
     }
 
-    public void setNombre(todosRoles nombre){
+    public void setNombre(TodosLosRoles nombre){
         this.nombre = nombre;
     }
 }

@@ -1,0 +1,61 @@
+package com.example.lab6_20212093_gtics.entitys;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "numeros_casa")
+public class NumeroCasa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+    @Column(name = "numero_objetivo")
+    private Integer numeroObjetivo;
+
+    private Integer intentos = 0;
+
+    private Boolean adivinado = false;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Integer getNumeroObjetivo() {
+        return numeroObjetivo;
+    }
+
+    public void setNumeroObjetivo(Integer numeroObjetivo) {
+        this.numeroObjetivo = numeroObjetivo;
+    }
+
+    public Integer getIntentos() {
+        return intentos;
+    }
+
+    public void setIntentos(Integer intentos) {
+        this.intentos = intentos;
+    }
+
+    public Boolean getAdivinado() {
+        return adivinado;
+    }
+
+    public void setAdivinado(Boolean adivinado) {
+        this.adivinado = adivinado;
+    }
+}

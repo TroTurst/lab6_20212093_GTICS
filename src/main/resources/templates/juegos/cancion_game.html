@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{_base_layout :: layout(~{::title}, ~{::#content})}">
+<head>
+  <title>Adivina la Canción Criolla</title>
+
+  <style>
+    .game-status-box {
+      background-color: #fff8e1; /* Fondo suave para el juego */
+      border: 1px solid var(--color-principal);
+      padding: 25px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .guess-feedback {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin: 20px 0;
+    }
+
+    .guess-letter {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      border-radius: 4px;
+      background-color: #ccc;
+    }
+
+    .status-A { background-color: var(--color-success); } /* Acierto */
+    .status-C { background-color: var(--color-principal); } /* Corrección */
+    .status-X { background-color: var(--color-error); } /* Error */
+  </style>
+</head>
+<body>
+<div class="container" id="content">
+  <h1>🎶 Adivina la Canción Criolla</h1>
+  <p>Tienes que adivinar el título de la canción asignada. El sistema te dirá si acertaste la letra y la posición.</p>
+
+  <div th:if="${deshabilitado}" class="alert alert-danger game-status-box">
+    No tienes una canción asignada. Por favor, <a th:href="@{/intenciones/registrar}" class="btn btn-primary">Solicita Asignación</a>.
+  </div>
+
+  <div th:if="${!deshabilitado}">
+    <div class="game-status-box">
+      <h3 style="color: var(--color-secundario);">Intento Actual: <span th:text="${cancionAsignada.intentos}">0</span></h3>
+
+      <div th:if="${ultimoResultado}" style="margin-top: 20px;">
+        <h4>Resultado del Intento Anterior:</h4>
+        <div class="guess-feedback">
+          <div th:each="char : ${#strings.arraySplit(ultimoResultado, '')}"
+               class="guess-letter" th:classappend="|status-${char}|"
+               th:text="${char}">A</div>
+        </div>
+      </div>
+
+      <p th:unless="${ultimoResultado}" style="color: #666;">Ingresa tu primer intento.</p>
+
+      <form th:action="@{/juegos/cancion/guess}" method="post" th:object="${guessForm}" style="margin-top: 30px;">
+        <div class="form-group">
+          <input type="text" th:field="*{intento}" class="form-control" placeholder="Título de la canción..." required/>
+        </div>
+        <button type="submit" class="btn btn-primary">Adivinar</button>
+      </form>
+
+      <a th:href="@{/juegos/cancion/ranking}" style="display: block; margin-top: 15px;">Ver Ranking (Top 10)</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

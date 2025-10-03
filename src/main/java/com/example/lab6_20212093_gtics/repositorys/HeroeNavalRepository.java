@@ -1,7 +1,8 @@
 package com.example.lab6_20212093_gtics.repositorys;
 
-import org.springframework.stereotype.Repository;
+import com.example.lab6_20212093_gtics.entitys.HeroeNaval;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class HeroeNavalRepository {
+public interface HeroeNavalRepository extends JpaRepository<HeroeNaval, Long> {
+
 }

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title} ?: 'Festival de Octubre'"></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+
+    /* Estoy usando IA para los HTML's y sus estilos */
+    :root {
+      --color-principal: #ff8c00;
+      --color-secundario: #4b0082;
+      --color-fondo: #f5f5f5;
+      --color-texto: #333;
+      --color-success: #28a745;
+      --color-error: #dc3545;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      margin: 0;
+      padding-top: 60px;
+    }
+
+    .navbar {
+      background-color: var(--color-secundario);
+      color: white;
+      padding: 10px 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-links a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.3s;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn-primary {
+      background-color: var(--color-principal);
+      color: white;
+    }
+
+    .btn-danger {
+      background-color: var(--color-error);
+      color: white;
+    }
+
+    .btn-success {
+      background-color: var(--color-success);
+      color: white;
+    }
+
+    /* Formulario */
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .alert-success {
+      background-color: #d4edda;
+      color: var(--color-success);
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+      background-color: #f8d7da;
+      color: var(--color-error);
+      border: 1px solid #f5c6cb;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th, .table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+      background-color: var(--color-principal);
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="/home" class="navbar-brand">Festival de Octubre Digital</a>
+  <div class="nav-links">
+    <a href="/heroes">Héroes Navales</a>
+    <a sec:authorize="isAuthenticated()" href="/intenciones/registrar">Petición</a>
+    <a sec:authorize="hasAnyAuthority('USUARIO', 'ADMIN')" href="/juegos/cancion">Juego Criollo</a>
+    <a sec:authorize="hasAnyAuthority('USUARIO', 'ADMIN')" href="/juegos/dulces">Juego Halloween</a>
+    <a sec:authorize="hasAnyAuthority('USUARIO', 'ADMIN')" href="/reservas">Reservas</a>
+
+    <a sec:authorize="hasAuthority('ADMIN')" href="/admin/heroes" class="btn-success">Admin</a>
+
+    <span sec:authorize="isAuthenticated()">
+                <a href="/logout">Logout</a>
+            </span>
+    <span sec:authorize="isAnonymous()">
+                <a href="/login" class="btn-primary">Login</a>
+            </span>
+  </div>
+</nav>
+
+<div class="container" th:fragment="content">
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("Festival de Octubre cargado.");
+
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      setTimeout(() => {
+        alert.style.opacity = '0';
+        alert.style.transition = 'opacity 0.5s';
+        setTimeout(() => alert.style.display = 'none', 500);
+      }, 5000);
+    });
+  });
+</script>
+</body>
+</html>

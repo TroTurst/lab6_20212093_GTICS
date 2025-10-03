@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{_base_layout :: layout(~{::title}, ~{::#content})}">
+<head>
+  <title>Registrar Petición</title>
+</head>
+<body>
+<div class="container" id="content">
+  <h1>🙏 Módulo de Intenciones/Peticiones</h1>
+  <p>Como usuario, puedes registrar una única intención o petición breve.</p>
+
+  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+  <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+  <div class="card">
+    <h3 style="color: var(--color-principal);">Mi Petición</h3>
+    <form th:action="@{/intenciones/registrar}" th:object="${intencionDto}" method="post">
+
+      <div class="form-group">
+        <label for="descripcion">Descripción de la Petición (Mínimo 15 caracteres):</label>
+        <textarea id="descripcion" th:field="*{descripcion}" class="form-control" rows="4" required minlength="15"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Enviar Petición</button>
+
+    </form>
+  </div>
+
+  <p style="margin-top: 20px; font-size: 0.9em; color: var(--color-error);">
+    *Recuerda: Solo se permite una petición por cuenta. Evita palabras prohibidas (ej. "odio", "pelea").
+  </p>
+
+</div>
+</body>
+</html>

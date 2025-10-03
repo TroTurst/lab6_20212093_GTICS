@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{_base_layout :: layout(~{::title}, ~{::#content})}">
+<head>
+  <title>Héroes Navales | Lista</title>
+
+  <style th:replace="~{_base_layout :: styles}"></style> <style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding-top: 20px;
+  }
+
+  .hero-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 5px solid var(--color-principal);
+  }
+
+  .hero-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .hero-title {
+    color: var(--color-secundario);
+    margin-top: 0;
+  }
+
+  .hero-meta {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+  }
+
+  .hero-meta span {
+    display: block;
+  }
+</style>
+</head>
+<body>
+<div class="container" id="content">
+  <h1>🇵🇪 Héroes Navales del Continente</h1>
+  <p>Conoce la historia de los grandes héroes que defendieron el mar. (Vista de solo lectura)</p>
+
+  <div class="hero-grid">
+    <div class="card hero-card" th:each="heroe : ${heroes}">
+      <h3 class="hero-title" th:text="${heroe.nombre}">Nombre del Héroe</h3>
+
+      <div class="hero-meta">
+        <span th:text="|Rango: ${heroe.rango ?: 'No especificado'}|">Rango: Almirante</span>
+        <span th:text="|País: ${heroe.pais}|">País: Perú</span>
+        <span th:text="|Nacimiento: ${heroe.fechaNacimiento ?: 'Desconocido'}|">Nacimiento: 27-07-1834</span>
+      </div>
+
+      <p th:text="${heroe.reseña}">Reseña breve del héroe naval.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
