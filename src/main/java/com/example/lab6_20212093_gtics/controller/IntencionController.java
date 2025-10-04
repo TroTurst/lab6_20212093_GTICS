@@ -34,7 +34,7 @@ public class IntencionController {
 
         if (intencionService.yaExistePeticion(usuario.getId())) {
             redirectAttributes.addFlashAttribute("error", "Ya has registrado una petición en esta sesión.");
-            return "redirect:/home";
+            return "redirect:/lista_publica";
         }
 
         model.addAttribute("intencionDto", new IntencionDTO());
@@ -51,6 +51,6 @@ public class IntencionController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/home";
+        return "redirect:/lista_publica";
     }
 }

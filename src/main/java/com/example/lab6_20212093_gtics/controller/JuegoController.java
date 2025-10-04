@@ -102,6 +102,6 @@ public class JuegoController {
                                  SessionStatus status, RedirectAttributes redirect) {
 
         //No me salio y me quede sin cafe
-        return "Oktoberfest";
+        return "lista_publica";
     }
 }

@@ -14,6 +14,6 @@ public class SecurityController {
 
     @GetMapping({"/", "/home"})
     public String home() {
-        return "home";
+        return "heroes/lista_publica";
     }
 }

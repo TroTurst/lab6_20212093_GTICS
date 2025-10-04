@@ -29,7 +29,7 @@ public class ReservaController {
         model.addAttribute("mesasOcupadas", ocupadas);
         model.addAttribute("reservaDto", new ReservaDTO());
 
-        return "reservas/mesas_user";
+        return "intenciones/registrar";
     }
 
     // USUARIO: Reservar una mesa
@@ -43,14 +43,14 @@ public class ReservaController {
         } catch (Exception e) {
             redirect.addFlashAttribute("error", e.getMessage()); // Maneja restricción de 1 reserva/cuenta
         }
-        return "redirect:/reservas";
+        return "redirect:/intenciones/registrar";
     }
 
     @GetMapping("/admin")
     public String adminReservas(Model model) {
         model.addAttribute("reservas", reservaService.findAllReservas());
         model.addAttribute("mesas", mesaRepository.findAll());
-        return "reservas/admin_list";
+        return "intenciones/registrar";
     }
 
     @GetMapping("/admin/liberar/{mesaId}")
@@ -61,14 +61,15 @@ public class ReservaController {
         } catch (Exception e) {
             redirect.addFlashAttribute("error", e.getMessage());
         }
-        return "redirect:/reservas/admin";
+        return "redirect:/intenciones/registrar";
     }
 
-    @PostMapping("/admin/capacidad")
-    public String reasignarCapacidad(@RequestParam Long mesaId, @RequestParam Integer nuevaCapacidad) {
-        Mesa mesa = mesaRepository.BuscarPorId(mesaId).orElseThrow(); //No se porque me da este problema
-        mesa.setCapacidad(nuevaCapacidad);
-        mesaRepository.save(mesa);
-        return "redirect:/reservas/admin";
-    }
+    //Lo quito mejor
+//    @PostMapping("/admin/capacidad")
+//    public String reasignarCapacidad(@RequestParam Long mesaId, @RequestParam Integer nuevaCapacidad) {
+//        Mesa mesa = mesaRepository.BuscarPorId(mesaId).orElseThrow(); //No se porque me da este problema
+//        mesa.setCapacidad(nuevaCapacidad);
+//        mesaRepository.save(mesa);
+//        return "redirect:/intenciones/registrar";
+//    }
 }
